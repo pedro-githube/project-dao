@@ -46,18 +46,50 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		catch(SQLException e) {
 			throw new DbException(e.getMessage());
 		}
+		finally {
+			DB.closeStatement(prepared);
+		}
 	}
 
 	@Override
 	public void update(Department obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement prepared = null;
 		
+		try {
+			prepared = connection.prepareStatement("UPDATE department SET Name = ? "
+					                               + "WHERE Id = ?");
+			
+			prepared.setString(1, obj.getName());
+			prepared.setInt(2, obj.getId());
+			
+			prepared.executeUpdate();
+		} 
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(prepared);
+		}
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
+		PreparedStatement prepared = null;
+		try {
+			prepared = connection.prepareStatement("DELETE FROM department WHERE Id = ?");
+			prepared.setInt(1, id);
+			int rowsAffected = prepared.executeUpdate();
+			
+		    if (rowsAffected == 0) {
+		    	throw new DbException("non-existent id");
+		    }
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(prepared);
+		}
 	}
 
 	@Override
@@ -81,6 +113,10 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		 catch(SQLException e) {
 			 throw new DbException(e.getMessage());
 		 }
+		 finally {
+				DB.closeStatement(prepared);
+				DB.closeResultSet(result);
+			}
 	}
 
 	@Override
@@ -101,6 +137,10 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		  return list;
 		}catch (SQLException e) {
 			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(prepared);
+			DB.closeResultSet(result);
 		}
 	}
 	
