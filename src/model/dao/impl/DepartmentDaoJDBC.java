@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import db.DB;
+import db.DbException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
 
@@ -60,8 +61,25 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 
 	@Override
 	public Department findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		 PreparedStatement prepared = null;
+		 ResultSet result = null;
+		 try {
+			 prepared = connection.prepareStatement("SELECT * FROM department "
+			 							 			+ "WHERE Id = ?;");
+			 prepared.setInt(1, id);
+			 result = prepared.executeQuery();
+			 
+		  if(result.next()) {	 
+			 Department department = new Department();
+			 department.setId(id);
+			 department.setName(result.getString("Name"));
+			 return department;
+		  }
+			 return null;
+		 }
+		 catch(SQLException e) {
+			 throw new DbException(e.getMessage());
+		 }
 	}
 
 	@Override
