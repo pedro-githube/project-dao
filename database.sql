@@ -1,3 +1,6 @@
+CREATE DATABASE data_base;
+USE data_base;
+
 CREATE TABLE department (
   Id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(60) DEFAULT NULL,
