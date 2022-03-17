@@ -6,7 +6,7 @@ The DAO project was developed during the Java Programação Orientada a Objetos 
 
 The project proposal is to know the DAO (Data Access Object) design pattern and be able to perform a manual CRUD without using a framework.
 
-## Domain class
+## Domain Model
 ![2022-03-16 (12)](https://user-images.githubusercontent.com/91923421/158690676-655150fb-60f8-4f9f-ac41-686a635da4e4.png)
 
 # Technologies
