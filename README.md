@@ -23,6 +23,7 @@ Requirements:
  - Name the MySQLConnector User Library
  - Add external JARs -> (locate the jar file)
  - Add the MySQLConnector User Library to the project
+ - You must have installed the MySQL database and run the database.sql file
 
 Link to download MySQL driver : https://downloads.mysql.com/archives/c-j/
 
